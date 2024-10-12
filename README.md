@@ -1,5 +1,5 @@
-# gmm
+# g--
 
-(Pronunciado "G minus minus")
+`g++`, pero bamba.
 
-"Compilador" de C++ bamba para un proyecto del curso de Programación II.
+"Compilador" de un subset diminuto de C++ para un proyecto del curso de Programación II.
