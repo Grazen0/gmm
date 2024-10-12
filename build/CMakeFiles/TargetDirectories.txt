@@ -1,0 +1,3 @@
+/home/jdgt/Code/UTEC/Progra 2/proyecto-a/build/CMakeFiles/proyecto_a.dir
+/home/jdgt/Code/UTEC/Progra 2/proyecto-a/build/CMakeFiles/edit_cache.dir
+/home/jdgt/Code/UTEC/Progra 2/proyecto-a/build/CMakeFiles/rebuild_cache.dir

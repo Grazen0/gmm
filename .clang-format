@@ -1,0 +1,4 @@
+BasedOnStyle: Microsoft
+PointerAlignment: Left
+ColumnLimit: 80
+IndentCaseLabels: true
