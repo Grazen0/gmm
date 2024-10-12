@@ -86,12 +86,14 @@ int process_line(const std::string& line, int& mem_addr,
 
         output.push_back("mul " + dest + ", " + left + ", " + right);
     }
-    else if (match_statement("%r%s++", line, match_args) == MATCH_OK)
+    else if ((match_statement("%r%s++", line, match_args) == MATCH_OK) ||
+             (match_statement("++%s%r", line, match_args) == MATCH_OK))
     {
         std::string reg = match_args[0];
         output.push_back("inc " + reg);
     }
-    else if (match_statement("%r%s--", line, match_args) == MATCH_OK)
+    else if ((match_statement("%r%s--", line, match_args) == MATCH_OK) ||
+             (match_statement("--%s%r", line, match_args) == MATCH_OK))
     {
         std::string reg = match_args[0];
         output.push_back("dec " + reg);
