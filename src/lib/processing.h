@@ -6,8 +6,7 @@
 
 const int LINE_OK = 0;
 const int LINE_ERR_UNMATCHED_BRACE = 1;
-const int LINE_ERR_MISSING_SEMI = 2;
-const int LINE_ERR_UNKOWN_INSTRUCTION = 3;
+const int LINE_ERR_UNKOWN_INSTRUCTION = 2;
 
 std::string get_line_err_message(const int err);
 

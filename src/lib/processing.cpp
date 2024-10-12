@@ -7,10 +7,8 @@ std::string get_line_err_message(const int err)
     {
         case LINE_ERR_UNMATCHED_BRACE:
             return "Llave de cierre sin emparejar";
-        case LINE_ERR_MISSING_SEMI:
-            return "Punto y coma faltante";
         case LINE_ERR_UNKOWN_INSTRUCTION:
-            return "Instrucción no reconocida";
+            return "Sintaxis inválida";
         default:
             return "Error desconocido";
     }
