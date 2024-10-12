@@ -1,1 +1,0 @@
-/run/current-system/sw/bin/c++ CMakeFiles/proyecto_a.dir/src/main.cpp.o -o proyecto_a
