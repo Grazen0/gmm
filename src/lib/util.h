@@ -3,8 +3,8 @@
 
 #include <string>
 
-bool is_numeric(char ch);
+bool is_numeric(const char ch);
 
-bool is_valid_register(char ch);
+bool is_valid_register(const char ch);
 
 #endif
