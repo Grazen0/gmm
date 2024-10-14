@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-BUILD_DIR="build"
+BUILD_DIR="cmake-build-debug"
 
 mkdir -p $BUILD_DIR
 cmake . -B $BUILD_DIR

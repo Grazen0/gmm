@@ -4,7 +4,7 @@
 int match_statement(const std::string& pattern, const std::string& src,
                     std::vector<std::string>& dest)
 {
-    return match_trim(pattern + "%s;", src, dest);
+    return match("%s" + pattern + "%s;%s", src, dest);
 }
 
 int match_trim(const std::string& pattern, const std::string& src,
@@ -13,6 +13,16 @@ int match_trim(const std::string& pattern, const std::string& src,
     return match("%s" + pattern + "%s", src, dest);
 }
 
+// Pattern matching inspirado un poco en Rust y Haskell, con sintaxis
+// basada en el formateo de `printf` en C.
+// Toma un patrón y un string, y comprueba que el string coincide con el patrón.
+// Además, extrae ciertos parámetros: nombres de registros y literales de
+// `int`s.
+//
+// %r -> nombre de registro (se añade a match_args)
+// %s -> cualquier cantidad de espaciado, posiblemente nada
+// %i -> número entero, posiblemente con signo negativo (se añade a match_args)
+// %% -> caracter '%' (no se usa, pero está implementado por completitud)
 int match(const std::string& pattern, const std::string& src,
           std::vector<std::string>& match_args)
 {
@@ -27,7 +37,7 @@ int match(const std::string& pattern, const std::string& src,
 
         if (pattern_ch != '%')
         {
-            // Match literal characters
+            // Comparar caracteres tal cual
             if (src_index >= src.size() || pattern_ch != src[src_index])
                 return MATCH_NOMATCH;
 
@@ -36,7 +46,7 @@ int match(const std::string& pattern, const std::string& src,
         }
         else
         {
-            // Special matching
+            // Coincidencia de patrón
             if (pattern_index + 1 >= pattern.size())
                 return MATCH_INVALID_PATTERN;
 
@@ -51,7 +61,7 @@ int match(const std::string& pattern, const std::string& src,
                     src_index++;
                     break;
                 }
-                case 'r': { // Match a register name
+                case 'r': { // Nombre de registro
                     if (src_index >= src.size())
                         return MATCH_NOMATCH;
 
@@ -65,7 +75,7 @@ int match(const std::string& pattern, const std::string& src,
                     match_args.push_back(reg_string);
                     break;
                 }
-                case 'i': { // Match a signed integer
+                case 'i': { // Número entero
                     if (src_index >= src.size())
                         return MATCH_NOMATCH;
 
@@ -89,7 +99,7 @@ int match(const std::string& pattern, const std::string& src,
                     match_args.push_back(numeric_literal);
                     break;
                 }
-                case 's': { // Match any amount of whitespace
+                case 's': { // Cualquier cantidad de espaciado
                     while (src_index < src.size() &&
                            (src[src_index] == ' ' || src[src_index] == '\t'))
                         src_index++;

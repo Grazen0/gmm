@@ -1,14 +1,8 @@
 #include "compilation.h"
 #include "matching.h"
-#include <iostream>
+#include <fstream>
 
-// No sabemos bien qué es `basic_istream`, pero está en la firma de
-// `std::getline`. Ya que leer tanto de `std::cin` como de un archivo usan
-// `std::getline`, necesitábamos un tipo de parámetro que acepte ambas opciones.
-//
-// Un retorno `n != 0`, indica un error en la línea `n`.
-int compile_from_istream(std::basic_istream<char>& src,
-                         std::vector<std::string>& output)
+int compile_from_ifstream(std::ifstream& src, std::vector<std::string>& output)
 {
     int line_number = 1;
     int mem_addr = 100;
@@ -25,7 +19,7 @@ int compile_from_istream(std::basic_istream<char>& src,
         line_number++;
     }
 
-    return STATUS_OK;
+    return 0;
 }
 
 int process_line(const std::string& line, int& mem_addr,
@@ -33,9 +27,9 @@ int process_line(const std::string& line, int& mem_addr,
 {
     std::vector<std::string> match_args;
 
-    if (match_trim("", line, match_args) == MATCH_OK)
+    if (match("%s", line, match_args) == MATCH_OK)
     {
-        // Just an empty line
+        // Línea vacía
     }
     else if (match_trim("while%s(%strue%s)%s{", line, match_args) == MATCH_OK)
     {
