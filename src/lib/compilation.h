@@ -1,5 +1,5 @@
-#ifndef LIB_PROCESSING
-#define LIB_PROCESSING
+#ifndef LIB_COMPILATION
+#define LIB_COMPILATION
 
 #include <string>
 #include <vector>
