@@ -1,17 +1,31 @@
-#include "processing.h"
+#include "compilation.h"
 #include "matching.h"
+#include <iostream>
 
-std::string get_line_err_message(const int err)
+// No sabemos bien qué es `basic_istream`, pero está en la firma de
+// `std::getline`. Ya que leer tanto de `std::cin` como de un archivo usan
+// `std::getline`, necesitábamos un tipo de parámetro que acepte ambas opciones.
+//
+// Un retorno `n != 0`, indica un error en la línea `n`.
+int compile_from_istream(std::basic_istream<char>& src,
+                         std::vector<std::string>& output)
 {
-    switch (err)
+    int line_number = 1;
+    int mem_addr = 100;
+    std::vector<int> jmp_stack;
+    std::string line;
+
+    while (std::getline(src, line))
     {
-        case LINE_ERR_UNMATCHED_BRACE:
-            return "Llave de cierre sin emparejar";
-        case LINE_ERR_UNKOWN_INSTRUCTION:
-            return "Sintaxis inválida";
-        default:
-            return "Error desconocido";
+        int result = process_line(line, mem_addr, jmp_stack, output);
+
+        if (result != STATUS_OK)
+            return line_number;
+
+        line_number++;
     }
+
+    return STATUS_OK;
 }
 
 int process_line(const std::string& line, int& mem_addr,
@@ -31,7 +45,7 @@ int process_line(const std::string& line, int& mem_addr,
     else if (match_trim("}", line, match_args) == MATCH_OK)
     {
         if (jmp_stack.empty())
-            return LINE_ERR_UNMATCHED_BRACE;
+            return STATUS_ERR;
 
         int jmp_dest = jmp_stack.back();
         jmp_stack.pop_back();
@@ -97,7 +111,7 @@ int process_line(const std::string& line, int& mem_addr,
         output.push_back("dec " + reg);
     }
     else
-        return LINE_ERR_UNKOWN_INSTRUCTION;
+        return STATUS_ERR;
 
-    return LINE_OK;
+    return STATUS_OK;
 }
