@@ -80,10 +80,11 @@ int match(const std::string& pattern, const std::string& src,
                         return MATCH_NOMATCH;
 
                     std::string numeric_literal;
+                    bool negative = false;
 
                     if (src[src_index] == '-')
                     {
-                        numeric_literal += '-';
+                        negative = true;
                         src_index++;
                     }
 
@@ -95,6 +96,9 @@ int match(const std::string& pattern, const std::string& src,
 
                     if (numeric_literal.empty())
                         return MATCH_NOMATCH;
+
+                    if (negative)
+                        numeric_literal = '-' + numeric_literal;
 
                     match_args.push_back(numeric_literal);
                     break;

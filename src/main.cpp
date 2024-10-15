@@ -23,11 +23,17 @@ int handle_prompt_file_result(std::ifstream& input_file,
         return STATUS_ERR;
     }
 
-    const int error_line = compile_from_ifstream(input_file, output);
+    const int result = compile_from_ifstream(input_file, output);
 
-    if (error_line != 0)
+    if (result == STATUS_UNMATCHED_BRACE)
     {
-        std::cerr << "Error en la línea " << error_line << "." << std::endl;
+        std::cerr << "No se pudo compilar: bucle sin cerrar." << std::endl;
+        return STATUS_ERR;
+    }
+    else if (result != STATUS_OK)
+    {
+        std::cerr << "No se pudo compilar: error en la línea " << result << "."
+                  << std::endl;
         return STATUS_ERR;
     }
 

@@ -2,6 +2,9 @@
 #include "matching.h"
 #include <fstream>
 
+//   0 -> OK
+//   1 -> Bucle sin cerrar
+// > 0 -> Error de sintaxis en la línea `n`
 int compile_from_ifstream(std::ifstream& src, std::vector<std::string>& output)
 {
     int line_number = 1;
@@ -19,7 +22,10 @@ int compile_from_ifstream(std::ifstream& src, std::vector<std::string>& output)
         line_number++;
     }
 
-    return 0;
+    if (!jmp_stack.empty())
+        return STATUS_UNMATCHED_BRACE;
+
+    return STATUS_OK;
 }
 
 int process_line(const std::string& line, int& mem_addr,

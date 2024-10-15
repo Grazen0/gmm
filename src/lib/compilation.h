@@ -6,6 +6,7 @@
 
 const int STATUS_OK = 0;
 const int STATUS_ERR = 1;
+const int STATUS_UNMATCHED_BRACE = -1;
 
 int compile_from_ifstream(std::ifstream& src, std::vector<std::string>& output);
 
