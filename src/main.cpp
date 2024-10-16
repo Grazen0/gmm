@@ -3,6 +3,9 @@
 #include <iostream>
 #include <vector>
 
+// `std::ifstream` nos permite leer archivos.
+// Más adelante se usa con `std::getline` para leer línea por línea.
+// https://www.geeksforgeeks.org/how-to-read-from-a-file-in-cpp/
 std::ifstream prompt_file(const char prompt_message[])
 {
     std::string filename;
