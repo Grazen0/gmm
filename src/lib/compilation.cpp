@@ -2,9 +2,10 @@
 #include "matching.h"
 #include <fstream>
 
-//   0 -> OK
-//   1 -> Bucle sin cerrar
-// > 0 -> Error de sintaxis en la línea `n`
+// Valores de retorno
+// n =  0  -> Ok
+// n = -1  -> Bucle sin cerrar
+// n >  0  -> Error de sintaxis en la línea `n`
 int compile_from_ifstream(std::ifstream& src, std::vector<std::string>& output)
 {
     int line_number = 1;
