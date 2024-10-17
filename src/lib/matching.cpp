@@ -33,7 +33,7 @@ int match(const std::string& pattern, const std::string& src,
 
     while (pattern_index < pattern.size())
     {
-        char pattern_ch = pattern[pattern_index];
+        const char pattern_ch = pattern[pattern_index];
 
         if (pattern_ch != '%')
         {
@@ -50,7 +50,7 @@ int match(const std::string& pattern, const std::string& src,
             if (pattern_index + 1 >= pattern.size())
                 return MATCH_INVALID_PATTERN;
 
-            char match_code = pattern[pattern_index + 1];
+            const char match_code = pattern[pattern_index + 1];
 
             switch (match_code)
             {
