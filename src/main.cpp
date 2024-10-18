@@ -38,6 +38,8 @@ int handle_compilation_result(const int result,
         return 1;
     }
 
+    std::cout << "Resultado de compilación:" << std::endl;
+
     for (auto& line : output)
         std::cout << line << std::endl;
 
